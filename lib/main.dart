@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          theme: ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          themeMode: ThemeMode.dark,
           debugShowCheckedModeBanner: false,
           home: ProductPage(),
         ),
@@ -33,74 +37,96 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// import 'dart:convert';
+
 // import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-
-// // Define your Photo and Urls classes here (from the previous example).
-
-// Future<List<PhotoModal>> fetchPhotos() async {
-//   final response = await http.get(
-//     Uri.parse(
-//         'https://api.unsplash.com/photos/?client_id=Xq2ECd-hdDq8E6pW8C6g7VmNbOJwmVbutih9niMl2VM&per_page=30'), // Replace with your API endpoint
-//   );
-
-//   if (response.statusCode == 200) {
-//     List<dynamic> jsonResponse = json.decode(response.body);
-//     return jsonResponse.map((data) => PhotoModal.fromJson(data)).toList();
-//   } else {
-//     throw Exception('Failed to load photos');
-//   }
-// }
+// import 'package:wallpaper_app/sample.dart';
 
 // void main() {
-//   runApp(MyApp());
+//   runApp(const MyApp());
 // }
 
+// enum _SelectedTab { home, favorite, add, search, person }
+
 // class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   // This widget is the root of your application.
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-//       home: PhotoListScreen(),
+//       debugShowCheckedModeBanner: false,
+//       title: 'Crystal Bottom Bar Example',
+      // theme: ThemeData(
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      // ),
+      // themeMode: ThemeMode.dark,
+//       home: const HomePage(),
 //     );
 //   }
 // }
 
-// class PhotoListScreen extends StatelessWidget {
-//   final Future<List<PhotoModal>> photos = fetchPhotos();
+// class HomePage extends StatefulWidget {
+//   const HomePage({super.key});
+
+//   @override
+//   State<HomePage> createState() => _HomePageState();
+// }
+
+// class _HomePageState extends State<HomePage> {
+//   var _selectedTab = _SelectedTab.home;
+
+//   void _handleIndexChanged(int i) {
+//     setState(() {
+//       _selectedTab = _SelectedTab.values[i];
+//     });
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Photos'),
+//       backgroundColor: Colors.black,
+//       extendBody: true,
+//       body: SizedBox(
+//         height: MediaQuery.of(context).size.height,
+//         child: Image.network(
+//           "https://mrahkat.net/wp-content/uploads/2019/07/unnamed-file-416.jpg",
+//           fit: BoxFit.fitHeight,
+//         ),
 //       ),
-//       body: FutureBuilder<List<PhotoModal>>(
-//         future: photos,
-//         builder: (context, snapshot) {
-//           if (snapshot.connectionState == ConnectionState.waiting) {
-//             return Center(child: CircularProgressIndicator());
-//           } else if (snapshot.hasError) {
-//             return Center(child: Text('Error: ${snapshot.error}'));
-//           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-//             return Center(child: Text('No photos available'));
-//           } else {
-//             return ListView.builder(
-//               itemCount: snapshot.data!.length,
-//               itemBuilder: (context, index) {
-//                 PhotoModal photo = snapshot.data![index];
-//                 return ListTile(
-//                   leading: Image.network(photo.urls.thumb),
-//                   title: Text(
-//                     photo.altDescription,
-//                     style: TextStyle(),
-//                     overflow: TextOverflow.ellipsis,
-//                   ),
-//                 );
-//               },
-//             );
-//           }
-//         },
+//       bottomNavigationBar: CrystalNavigationBar(
+//         currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+//         height: 10,
+//         // indicatorColor: Colors.blue,
+//         unselectedItemColor: Colors.white70,
+//         backgroundColor: Colors.black,
+
+//         onTap: _handleIndexChanged,
+//         items: [
+//           /// Home
+//           CrystalNavigationBarItem(
+//               icon: Icons.home,
+//               selectedColor: Colors.white,
+//               unselectedColor: Colors.grey),
+
+//           /// Favourite
+//           /// Search
+//           CrystalNavigationBarItem(
+//               unselectedColor: Colors.grey,
+//               icon: Icons.search,
+//               selectedColor: Colors.white),
+//           CrystalNavigationBarItem(
+//               icon: Icons.notifications,
+//               selectedColor: Colors.red,
+//               unselectedColor: Colors.grey),
+
+//           /// Add
+//           CrystalNavigationBarItem(
+//               icon: Icons.circle,
+//               selectedColor: Colors.white,
+//               unselectedColor: Colors.grey),
+
+//           /// Profile
+//         ],
 //       ),
 //     );
 //   }

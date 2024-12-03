@@ -34,7 +34,9 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
       _hasReachedMax = false;
       _photoList =
           await photoRepo.fetchPhotos(page: _currentPage, perPage: _perPage);
-
+      log('List id  ${_photoList.first.id}');
+      _photoList = _photoList.reversed.toList();
+      log('List id 2  ${_photoList.first.id}');
       if (_photoList.length < _perPage) {
         _hasReachedMax = true;
       }
